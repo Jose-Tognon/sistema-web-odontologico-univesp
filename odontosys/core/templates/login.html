@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="text-primary">Consultório Médico</h2>
+            <p class="text-muted">Controle de Estoque</p>
+            {% for message in messages %}
+            <h3 class="alert alert-danger">{{message}}</h3>
+            {% endfor %}
+        </div>
+        <form id="loginForm" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" class="form-control" id="username" required name="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" required name="password">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            <div id="loginError" class="text-danger mt-2 text-center" style="display: none;">
+                Usuário ou senha inválidos.
+            </div>
+        </form>
+    </div>
+{% endblock %}
