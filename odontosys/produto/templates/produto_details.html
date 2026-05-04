@@ -2,42 +2,46 @@
 
 {% block content %}
 
-<a href="{% url 'produto:produto_list' %}"> Voltar</a>
-<h1>{{object}}
-    <span class="pull-right">
-        <a href="">
-            <button type="button" class="btn btn-sucess">
-                <span class="fa fa-pencil"></span>Editar 
-            </button>
-        </a>
-    </span>
-</h1>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card shadow p-4" style="max-width: 1000px; width: 100%;">
+        <a href="{% url 'produto:produto_list' %}"> <button type="submit" class="btn btn-primary">Voltar</button></a>
+        <h1 class="text-primary">{{object}}
+            <span class="pull-right">
+                <a href="">
+                    <button type="submit" class="btn btn-primary">
+                        Editar 
+                    </button>
+                </a>
+            </span>
+        </h1>
 
-<div class="col-sm-6">
-    <table class="table table-user-information">
-        <tbody>
-            <tr>
-                <th class="text-right">Validade</th>
-                <td>{{object.validade}}</td>
-            </tr>
-            <tr>
-                <th class="text-right">NCM</th>
-                <td>{{object.ncm}}</td>
-            </tr>
-            <tr>
-                <th class="text-right">Preço</th>
-                <td>R${{object.preco}}</td>
-            </tr>
-            <tr>
-                <th class="text-right">Estoque</th>
-                <td>{{object.estoque}}</td>
-            </tr>
-            <tr>
-                <th class="text-right">Estoque Minimo</th>
-                <td>{{object.estoque_minimo}}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="col-sm-6">
+            <table class="table table-user-information">
+                <tbody>
+                    <tr>
+                        <th class="text-right">Validade</th>
+                        <td>{{object.validade}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right">NCM</th>
+                        <td>{{object.ncm}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right">Preço</th>
+                        <td>R${{object.preco}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right">Estoque</th>
+                        <td>{{object.estoque}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right">Estoque Minimo</th>
+                        <td>{{object.estoque_minimo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

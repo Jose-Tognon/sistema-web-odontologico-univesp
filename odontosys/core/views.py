@@ -13,7 +13,7 @@ def login(request):
             return redirect('/')
         else:
             messages.info(request,'Usuário Incorreto')
-            return redirect('login')
+            return redirect('core:login')
     else:
         return render(request,'login.html')
 from django.shortcuts import render

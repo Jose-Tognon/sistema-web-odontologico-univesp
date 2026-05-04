@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <article>
+            <h1 class="text-primary">Adicionar Um Produto</h1>
+            <!--Begin row-->
+            <div class="row">
+            <!--Begin col-->
+            <div class="column">
+                <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-primary w-100">Cadastrar Produto</button>
+                </form>
+            </div>
+            </div>
+        </article>
+        </section>
+     </div>
+</div>
+
+{% endblock %}

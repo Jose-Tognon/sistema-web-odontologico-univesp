@@ -10,7 +10,7 @@
             <h3 class="alert alert-danger">{{message}}</h3>
             {% endfor %}
         </div>
-        <form id="loginForm" method="POST">
+        <form id="loginForm" method="POST" action="login">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label">Usuário</label>
@@ -21,9 +21,6 @@
                 <input type="password" class="form-control" id="password" required name="password">
             </div>
             <button type="submit" class="btn btn-primary w-100">Entrar</button>
-            <div id="loginError" class="text-danger mt-2 text-center" style="display: none;">
-                Usuário ou senha inválidos.
-            </div>
         </form>
     </div>
 </div>
