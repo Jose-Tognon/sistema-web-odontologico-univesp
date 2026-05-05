@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="page-header">
+<div class="page-header" id="header">
     <h2> Lista de Produtos
         <span class="pull-right">
             <a href="{% url 'produto:produto_add' %}">
@@ -15,7 +15,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Validade</th>
+                <th>Data de Validade</th>
                 <th>NCM</th>
                 <th>Produto</th>
                 <th>Preço</th>
@@ -26,12 +26,47 @@
         <tbody>
             {% for object in object_list %}
                 <tr>
-                    <td>{{object.validade}}</td>
+                    <td class="
+                    {% if object.status_validade == 'expirado' %}
+                        text-danger  bg-danger-subtle
+                    {% elif object.status_validade == 'perto' %}
+                        text-warning bg-warning-subtle
+                    {% endif %}
+                    ">
+                    {{object.validade}}
+                    </td>
                     <td>{{object.ncm}}</td>
+
                     <td><a href="{% url 'produto:produto_details' object.pk %}">{{object.produto}}</a></td>
+
                     <td>R$ <span class="pull-right">{{object.preco}}</span></td>
-                    <td class="text-center">{{object.estoque}}</td>
-                    <td class="text-center">{{object.estoque_minimo}}</td>
+
+                    <td class="text-center">
+                    <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="acao" value="diminuir">-</button>
+                    </form>
+
+                    {{object.estoque}}
+
+                    <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="acao" value="aumentar">+</button>
+                    </form>
+
+                    </td>
+                    
+                    <td class="text-center {% if object.estoque <= object.estoque_minimo %}text-warning{% endif %}">{{object.estoque_minimo}}</td>
+
+                    <td class="text-center">
+                    <form action="{% url 'produto:produto_delete' object.pk %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Tem certeza que deseja excluir este produto?');">
+                        🗑️
+                    </button>
+                    </form>
+                </td>
                 </tr>
             {% endfor %}
         </tbody>

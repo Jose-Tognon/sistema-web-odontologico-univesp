@@ -7,7 +7,7 @@
         <a href="{% url 'produto:produto_list' %}"> <button type="submit" class="btn btn-primary">Voltar</button></a>
         <h1 class="text-primary">{{object}}
             <span class="pull-right">
-                <a href="">
+                <a href="{% url 'produto:produto_edit' object.pk %}">
                     <button type="submit" class="btn btn-primary">
                         Editar 
                     </button>
