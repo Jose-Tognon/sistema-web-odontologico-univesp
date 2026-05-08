@@ -1,5 +1,13 @@
+
+header .nav-link {
+    color: #0D6EFD !important;
+}
+
+header .nav-link:hover {
+    color: #FCAC0D !important;
+}
 h1{
-    color: red;
+    color: #0D6EFD;
 }
 
 #logo {
@@ -17,4 +25,22 @@ li{
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 10px;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #0d6efd;
+}
+
+#footer{
+  background-color: #455B7D;
+  color: white;
+}
+
+footer a{
+  color: #FCAC0D;
 }
