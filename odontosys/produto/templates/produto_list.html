@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="page-header" id="header">
+<div class="page-header vh-100" id="header_produtos" >
     <h2> Lista de Produtos
         <span class="pull-right">
             <a href="{% url 'produto:produto_add' %}">
@@ -12,65 +12,73 @@
         </span>
     </h2>
     {% if object_list %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Data de Validade</th>
-                <th>NCM</th>
-                <th>Produto</th>
-                <th>Preço</th>
-                <th class="text-center">Estoque</th>
-                <th class="text-center">Estoque Mínimo</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for object in object_list %}
-                <tr>
-                    <td class="
-                    {% if object.status_validade == 'expirado' %}
-                        text-danger  bg-danger-subtle
-                    {% elif object.status_validade == 'perto' %}
-                        text-warning bg-warning-subtle
-                    {% endif %}
-                    ">
-                    {{object.validade}}
-                    </td>
-                    <td>{{object.ncm}}</td>
+            <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                            <th>Data de Validade</th>
+                            <th>NCM</th>
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th class="text-center">Estoque</th>
+                            <th class="text-center">Estoque Mínimo</th>
+                            <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                            {% for object in object_list %}
+                            <tr>
+                                <td class="
+                                {% if object.status_validade == 'expirado' %}
+                                    text-danger  bg-danger-subtle
+                                {% elif object.status_validade == 'perto' %}
+                                    text-warning bg-warning-subtle
+                                {% endif %}
+                                ">
+                                {{object.validade}}
+                                </td>
+                                <td>{{object.ncm}}</td>
 
-                    <td><a href="{% url 'produto:produto_details' object.pk %}">{{object.produto}}</a></td>
+                                <td><a href="{% url 'produto:produto_details' object.pk %}">{{object.produto}}</a></td>
 
-                    <td>R$ <span class="pull-right">{{object.preco}}</span></td>
+                                <td>R$ <span class="pull-right">{{object.preco}}</span></td>
 
-                    <td class="text-center">
-                    <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" name="acao" value="diminuir">-</button>
-                    </form>
+                                <td class="text-center">
+                                <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" name="acao" value="diminuir">-</button>
+                                </form>
 
-                    {{object.estoque}}
+                                {{object.estoque}}
 
-                    <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" name="acao" value="aumentar">+</button>
-                    </form>
+                                <form action="{% url 'produto:alterar_estoque' object.pk %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" name="acao" value="aumentar">+</button>
+                                </form>
 
-                    </td>
-                    
-                    <td class="text-center {% if object.estoque <= object.estoque_minimo %}text-warning{% endif %}">{{object.estoque_minimo}}</td>
+                                </td>
+                                
+                                <td class="text-center {% if object.estoque <= object.estoque_minimo %}text-warning bg-warning-subtle {% endif %}">{{object.estoque_minimo}}</td>
 
-                    <td class="text-center">
-                    <form action="{% url 'produto:produto_delete' object.pk %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Tem certeza que deseja excluir este produto?');">
-                        🗑️
-                    </button>
-                    </form>
-                </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                                <td class="text-center">
+                                <form action="{% url 'produto:produto_delete' object.pk %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Tem certeza que deseja excluir este produto?');">
+                                    🗑️
+                                </button>
+                                </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     {% else %}
     <p class="alert alert-warning"> Sem itens na lista</p>
     {% endif %}
