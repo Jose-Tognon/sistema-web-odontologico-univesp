@@ -4,6 +4,7 @@ from .forms import ProdutoForm
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import date, timedelta
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 def is_admin(user):
@@ -28,23 +29,30 @@ def produto_list(request):
     context = {'object_list': objects}
     return render(request, template_name, context)
 
+@login_required
+@user_passes_test(is_admin, login_url='login')
 def produto_details(request,pk):
     template_name = 'produto_details.html'
     obj = Produto.objects.get(pk=pk)
     context = {'object':obj}
     return render(request,template_name,context)
 
+@method_decorator(login_required, name='dispatch')
+@method_decorator(user_passes_test(is_admin, login_url='login'), name='dispatch')
 class ProdutoCreate(CreateView):
     model = Produto
     template_name = 'produto_form.html'
     form_class = ProdutoForm
 
-
+@method_decorator(login_required, name='dispatch')
+@method_decorator(user_passes_test(is_admin, login_url='login'), name='dispatch')
 class ProdutoUpdate(UpdateView):
     model = Produto
     template_name = 'produto_form.html'
     form_class = ProdutoForm
 
+@login_required
+@user_passes_test(is_admin, login_url='login')
 def alterar_estoque(request, pk):
     objeto = get_object_or_404(Produto, pk=pk)
 
@@ -62,6 +70,8 @@ def alterar_estoque(request, pk):
 
     return redirect('produto:produto_list')
 
+@login_required
+@user_passes_test(is_admin, login_url='login')
 def produto_delete(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
